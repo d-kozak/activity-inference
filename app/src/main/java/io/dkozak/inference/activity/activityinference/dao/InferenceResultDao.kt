@@ -13,7 +13,7 @@ interface InferenceResultDao {
     fun insert(inferenceResult: InferenceResult)
 
     @Query("select * from InferenceResult")
-    fun getALl(): LiveData<List<InferenceResult>>
+    fun getAll(): LiveData<List<InferenceResult>>
 
     @Query("select * from InferenceResult")
     fun getAllNow(): List<InferenceResult>
