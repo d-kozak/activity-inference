@@ -27,10 +27,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var txtActivity: TextView
     private lateinit var txtConfidence: TextView
     private lateinit var imgActivity: ImageView
-    private lateinit var btnStartTracking: Button
-    private lateinit var btnStopTracking: Button
-    private lateinit var btnShowData: Button
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,9 +36,9 @@ class MainActivity : AppCompatActivity() {
         txtActivity = findViewById(R.id.txt_activity)
         txtConfidence = findViewById(R.id.txt_confidence)
         imgActivity = findViewById(R.id.img_activity)
-        btnStartTracking = findViewById(R.id.btn_start_tracking)
-        btnStopTracking = findViewById(R.id.btn_stop_tracking)
-        btnShowData = findViewById(R.id.btn_show_data)
+        val btnStartTracking = findViewById<Button>(R.id.btn_start_tracking)
+        val btnStopTracking = findViewById<Button>(R.id.btn_stop_tracking)
+        val btnShowData = findViewById<Button>(R.id.btn_show_data)
 
         btnStartTracking.setOnClickListener { startTracking() }
         btnStopTracking.setOnClickListener { stopTracking() }

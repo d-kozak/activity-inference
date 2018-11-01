@@ -68,7 +68,7 @@ class BackgroundDetectedActivitiesService : Service() {
 
     }
 
-    fun removeActivityUpdatesButtonHandler() {
+    private fun removeActivityUpdatesButtonHandler() {
         val task = activityRecognitionClient.removeActivityUpdates(pendingIntent)
         task.addOnSuccessListener {
             Toast.makeText(applicationContext, "Removed activity updates successfully!", Toast.LENGTH_SHORT)

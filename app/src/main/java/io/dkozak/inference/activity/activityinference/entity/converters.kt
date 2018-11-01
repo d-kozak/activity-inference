@@ -6,9 +6,9 @@ import java.sql.Timestamp
 
 class Converters {
     @TypeConverter
-    fun fromTimestamp(value: Long?): Timestamp? = value?.let { Timestamp(it) }
+    fun fromTimestamp(value: Long): Timestamp = Timestamp(value)
 
     @TypeConverter
-    fun dateToTimestamp(timestamp: Timestamp?): Long? = timestamp?.time
+    fun dateToTimestamp(timestamp: Timestamp): Long = timestamp.time
 }
 

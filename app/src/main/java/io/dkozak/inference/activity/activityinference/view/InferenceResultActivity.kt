@@ -1,13 +1,13 @@
 package io.dkozak.inference.activity.activityinference.view
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import io.dkozak.inference.activity.activityinference.InferenceResultViewModel
 import io.dkozak.inference.activity.activityinference.R
+import io.dkozak.inference.activity.activityinference.viewmodel.InferenceResultViewModel
 
 class InferenceResultActivity : AppCompatActivity() {
 
