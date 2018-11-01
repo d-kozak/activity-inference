@@ -1,4 +1,4 @@
-package io.dkozak.inference.activity.activityinference
+package io.dkozak.inference.activity.activityinference.view
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -12,6 +12,11 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.gms.location.DetectedActivity
+import io.dkozak.inference.activity.activityinference.BROADCAST_DETECTED_ACTIVITY
+import io.dkozak.inference.activity.activityinference.CONFIDENCE
+import io.dkozak.inference.activity.activityinference.ExceptionHandler
+import io.dkozak.inference.activity.activityinference.R
+import io.dkozak.inference.activity.activityinference.service.BackgroundDetectedActivitiesService
 
 
 private val TAG = MainActivity::class.java.simpleName
@@ -29,6 +34,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Thread.setDefaultUncaughtExceptionHandler(ExceptionHandler())
         setContentView(R.layout.activity_main)
 
         txtActivity = findViewById(R.id.txt_activity)

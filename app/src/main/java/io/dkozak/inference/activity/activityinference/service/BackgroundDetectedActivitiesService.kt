@@ -1,4 +1,4 @@
-package io.dkozak.inference.activity.activityinference
+package io.dkozak.inference.activity.activityinference.service
 
 import android.app.PendingIntent
 import android.app.Service
@@ -7,6 +7,8 @@ import android.os.Binder
 import android.os.IBinder
 import android.widget.Toast
 import com.google.android.gms.location.ActivityRecognitionClient
+import io.dkozak.inference.activity.activityinference.DETECTION_INTERVAL_IN_MILLISECONDS
+import io.dkozak.inference.activity.activityinference.ExceptionHandler
 
 
 private val TAG = BackgroundDetectedActivitiesService::class.java.simpleName
@@ -25,6 +27,7 @@ class BackgroundDetectedActivitiesService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+        Thread.setDefaultUncaughtExceptionHandler(ExceptionHandler())
         activityRecognitionClient = ActivityRecognitionClient(this)
         intentService = Intent(this, DetectedActivitiesIntentService::class.java)
         pendingIntent = PendingIntent.getService(this, 1, intentService, PendingIntent.FLAG_UPDATE_CURRENT)
@@ -47,6 +50,10 @@ class BackgroundDetectedActivitiesService : Service() {
         task.addOnSuccessListener {
             Toast.makeText(applicationContext, "Successfully requested activity updates", Toast.LENGTH_SHORT)
                 .show()
+
+            val intent = Intent(this, InferenceResultPersistenseService::class.java)
+            startService(intent)
+
         }
 
         task.addOnFailureListener {
@@ -66,6 +73,10 @@ class BackgroundDetectedActivitiesService : Service() {
         task.addOnSuccessListener {
             Toast.makeText(applicationContext, "Removed activity updates successfully!", Toast.LENGTH_SHORT)
                 .show()
+
+            val intent = Intent(this, InferenceResultPersistenseService::class.java)
+            stopService(intent)
+
         }
 
         task.addOnFailureListener {

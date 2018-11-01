@@ -1,4 +1,4 @@
-package io.dkozak.inference.activity.activityinference
+package io.dkozak.inference.activity.activityinference.service
 
 import android.app.IntentService
 import android.content.Intent
@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.gms.location.ActivityRecognitionResult
 import com.google.android.gms.location.DetectedActivity
+import io.dkozak.inference.activity.activityinference.BROADCAST_DETECTED_ACTIVITY
 
 
 private val TAG = DetectedActivitiesIntentService::class.java.simpleName
