@@ -1,18 +1,14 @@
 package io.dkozak.inference.activity.activityinference.entity
 
 import androidx.room.TypeConverter
-import java.sql.Date
+import java.sql.Timestamp
 
 
 class Converters {
     @TypeConverter
-    fun fromTimestamp(value: Long?): Date? {
-        return if (value == null) null else Date(value)
-    }
+    fun fromTimestamp(value: Long?): Timestamp? = value?.let { Timestamp(it) }
 
     @TypeConverter
-    fun dateToTimestamp(date: Date?): Long? {
-        return date?.time
-    }
+    fun dateToTimestamp(timestamp: Timestamp?): Long? = timestamp?.time
 }
 

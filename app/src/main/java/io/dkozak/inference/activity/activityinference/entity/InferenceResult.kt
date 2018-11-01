@@ -2,7 +2,7 @@ package io.dkozak.inference.activity.activityinference.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.sql.Date
+import java.sql.Timestamp
 
 @Entity
 class InferenceResult {
@@ -14,7 +14,7 @@ class InferenceResult {
 
     var confidence: Int = 0
 
-    var timestamp: Date = Date(System.currentTimeMillis())
+    var timestamp: Timestamp = Timestamp(System.currentTimeMillis())
 
     override fun toString(): String {
         return "InferenceResult(id=$id, type=$type, confidence=$confidence, timestamp=$timestamp)"

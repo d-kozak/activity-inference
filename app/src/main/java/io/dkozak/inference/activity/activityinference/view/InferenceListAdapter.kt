@@ -18,6 +18,7 @@ class InferenceListAdapter(private val context: Context) :
         internal val imageView = itemView.findViewById<ImageView>(R.id.inferenceImageView)
         internal val typeTextView = itemView.findViewById<TextView>(R.id.typeTextView)
         internal val confidenceTextView = itemView.findViewById<TextView>(R.id.confidenceTextView)
+        internal val timeTextView = itemView.findViewById<TextView>(R.id.timeTextView)
     }
 
 
@@ -38,8 +39,9 @@ class InferenceListAdapter(private val context: Context) :
         val inferenceResult = inferenceResults[position]
         val (label, icon) = inferenceResult.getVisualRepresentation(context)
         holder.imageView.setImageResource(icon)
-        holder.typeTextView.text = label
-        holder.confidenceTextView.text = "Confidence ${inferenceResult.confidence}"
+        holder.typeTextView.text = "Activity: $label"
+        holder.confidenceTextView.text = "Confidence: ${inferenceResult.confidence}"
+        holder.timeTextView.text = "Time: ${inferenceResult.timestamp}"
 
     }
 
