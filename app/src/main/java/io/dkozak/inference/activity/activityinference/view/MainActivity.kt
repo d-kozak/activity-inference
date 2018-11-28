@@ -1,21 +1,18 @@
 package io.dkozak.inference.activity.activityinference.view
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import io.dkozak.inference.activity.activityinference.BROADCAST_DETECTED_ACTIVITY
-import io.dkozak.inference.activity.activityinference.CONFIDENCE
-import io.dkozak.inference.activity.activityinference.ExceptionHandler
-import io.dkozak.inference.activity.activityinference.R
+import io.dkozak.inference.activity.activityinference.*
 import io.dkozak.inference.activity.activityinference.service.BackgroundDetectedActivitiesService
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 private val TAG = MainActivity::class.java.simpleName
@@ -39,10 +36,12 @@ class MainActivity : AppCompatActivity() {
         val btnStartTracking = findViewById<Button>(R.id.btn_start_tracking)
         val btnStopTracking = findViewById<Button>(R.id.btn_stop_tracking)
         val btnShowData = findViewById<Button>(R.id.btn_show_data)
+        val btnCopyToClipboard = findViewById<Button>(R.id.btn_copy_to_clipboard)
 
         btnStartTracking.setOnClickListener { startTracking() }
         btnStopTracking.setOnClickListener { stopTracking() }
         btnShowData.setOnClickListener { goToShowData() }
+        btnCopyToClipboard.setOnClickListener { copyDataToClipboard() }
 
         broadcastReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
@@ -53,6 +52,18 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun copyDataToClipboard() {
+        GlobalScope.launch {
+            val database = ActivityInferenceDatabase.getInstance(this@MainActivity)
+            val dao = database.inferenceResultDao()
+            val inferenceResults = dao.getAllNow()
+            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            clipboard.primaryClip = ClipData.newPlainText("foo", inferenceResults.toString())
+            Toast.makeText(this@MainActivity, "Data copied", Toast.LENGTH_LONG).show()
+        }
+
     }
 
     private fun goToShowData() {

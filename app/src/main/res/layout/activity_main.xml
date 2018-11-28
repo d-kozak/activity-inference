@@ -62,4 +62,10 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:text="Stop Tracking"/>
+    <Button
+            android:text="Copy to clipboard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true" android:id="@+id/btn_copy_to_clipboard"
+            android:layout_marginBottom="156dp"/>
 </RelativeLayout>
