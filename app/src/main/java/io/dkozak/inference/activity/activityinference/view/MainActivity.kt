@@ -59,8 +59,10 @@ class MainActivity : AppCompatActivity() {
             val database = ActivityInferenceDatabase.getInstance(this@MainActivity)
             val dao = database.inferenceResultDao()
             val inferenceResults = dao.getAllNow()
+            val serializedResults = inferenceResults.map { "${it.type},${it.confidence},${it.timestamp}" }
+                .reduce { acc, unit -> "$acc\n$unit" }
             val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            clipboard.primaryClip = ClipData.newPlainText("foo", inferenceResults.toString())
+            clipboard.primaryClip = ClipData.newPlainText("foo", serializedResults)
             Toast.makeText(this@MainActivity, "Data copied", Toast.LENGTH_LONG).show()
         }
 
