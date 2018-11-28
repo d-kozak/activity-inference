@@ -1,5 +1,7 @@
 import datetime
 
+import matplotlib.pyplot as plt
+
 activities = {
     0: 'in_vehicle',
     1: 'on_bicycle',
@@ -14,8 +16,20 @@ activities = {
 
 def main():
     my_data = load_data("input.csv")
+    grouped = {}
     for line in my_data:
         print(line)
+        if not line[0] in grouped:
+            grouped[line[0]] = []
+        grouped[line[0]].append((line[2], line[1]))
+
+    for (key, value) in grouped.items():
+        dates = [line[0] for line in value]
+        confidence = [line[1] for line in value]
+        plt.plot(dates, confidence, label=key)
+    plt.title('Activity inference')
+    plt.legend()
+    plt.show()
 
 
 def load_data(file_name):
